@@ -1,11 +1,17 @@
 'use client';
 
+import { Fragment, useState } from 'react';
 import { useParams } from 'next/navigation';
+
+import { Quiz, CodeEditor } from '@/components';
 
 export default function Course() {
   const { course } = useParams();
-  
+
   return (
-    <p>{'This is: ' + course}</p>
+    <Fragment>
+      {/* <Quiz /> */}
+      <CodeEditor />
+    </Fragment>
   );
 }
