@@ -2,7 +2,7 @@
 
 import { FC, useState } from 'react';
 
-import { Button } from '@/components/ui';
+import { Button, Title } from '@/components/ui';
 import { Answer } from '@/components';
 import { quizeData } from './data';
 
@@ -21,11 +21,11 @@ export const Quiz: FC = () => {
   const onNext = () => setQuestionIdx(prev => Math.min(prev + 1, quizeData.length - 1));
 
   return (
-    <div className={'flex flex-col gap-6'}>
-      <div>
-        <p className={'text-center'}>{currentQuestion?.questionText}</p>
+    <div className={'flex items-center justify-center h-full'}>
+      <div className={'flex flex-col gap-6 w-2/3 '}>
+        <Title level={3} className={'mb-10 text-center'}>{currentQuestion?.questionText}</Title>
 
-        <ol className={'grid grid-rows-2 grid-flow-col gap-4'}>
+        <ol className='grid md:grid-cols-2 md:grid-rows-2 gap-2 md:gap-4'>
           {currentQuestion?.answers.map((answer) => {
             const isChecked = selectedAnswers[currentQuestionId] === answer.id;
             const answerType = isChecked
@@ -47,9 +47,8 @@ export const Quiz: FC = () => {
             );
           })}
         </ol>
-      </div>
 
-      {/* <div className={'flex flex-col gap-2'}>
+        {/* <div className={'flex flex-col gap-2'}>
         <Row className={'bg-emerald-200'}>
           <Icon icon={FaRegCheckCircle} />
           <p>Some content here</p>
@@ -61,17 +60,22 @@ export const Quiz: FC = () => {
         </Row>
       </div> */}
 
-      <div className={'flex justify-between'}>
-        <Button
-          text={'Prev'}
-          disabled={questionIdx === 0}
-          onClick={onPrev}
-        />
-        <Button
-          text={'Next'}
-          disabled={questionIdx === quizeData.length - 1}
-          onClick={onNext}
-        />
+        <div className={'flex justify-end'}>
+          <p>{`${questionIdx + 1} / ${quizeData.length}`}</p>
+        </div>
+
+        <div className={'flex justify-between'}>
+          <Button
+            text={'Prev'}
+            disabled={questionIdx === 0}
+            onClick={onPrev}
+          />
+          <Button
+            text={'Next'}
+            disabled={questionIdx === quizeData.length - 1}
+            onClick={onNext}
+          />
+        </div>
       </div>
     </div>
   );

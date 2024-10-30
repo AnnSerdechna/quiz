@@ -1,5 +1,7 @@
 import { FC, InputHTMLAttributes } from 'react';
 
+import './index.css';
+
 type RadioButtonProps = InputHTMLAttributes<HTMLInputElement> & {
   htmlFor: string 
   labelClassName: string
@@ -13,9 +15,10 @@ export const RadioButton: FC<RadioButtonProps> = ({ htmlFor, labelClassName, lab
   >
     <input
       type={'radio'}
+      className={'radio-btn'}
       {...props}
     />
-    <span className="checkmark"></span>
+    <span className={'checkmark'}></span>
     {labelText}
   </label>
 )

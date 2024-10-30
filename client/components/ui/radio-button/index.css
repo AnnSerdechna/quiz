@@ -1,0 +1,15 @@
+input.radio-btn[type="radio"] {
+  display: none;
+}
+
+input.radio-btn[type="radio"]~.checkmark {
+  align-self: center;
+  width: 14px;
+  height: 14px;
+  border: 1px solid #e4e4e7;  
+  border-radius: 50%;
+}
+
+input.radio-btn[type="radio"]:checked~.checkmark {
+  border: 4px solid #057bbb;
+}

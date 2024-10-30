@@ -1,7 +1,7 @@
-import React from 'react';
+import { SVGProps } from 'react';
 import { IconType } from 'react-icons';
 
-interface IconProps extends React.SVGProps<SVGSVGElement> {
+interface IconProps extends SVGProps<SVGSVGElement> {
   icon: IconType;
 }
 
