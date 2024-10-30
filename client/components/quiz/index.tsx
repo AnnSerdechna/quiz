@@ -1,62 +1,55 @@
-import { FC } from 'react';
-import { FaRegCheckCircle } from "react-icons/fa";
-import { CgCloseO } from "react-icons/cg";
+'use client';
 
-import { Row, Icon, Button } from '@/components/ui';
+import { FC, useState } from 'react';
 
-type AnswerProps = {
-  index: string
-  text: string
-  type?: 'correct' | 'wrong'
-}
-
-const Answer: FC<AnswerProps> = ({ index , text, type }) => (
-  <li 
-    className={`
-      w-96
-      px-4 
-      py-2 
-      ${type === 'correct' 
-        ? 'bg-emerald-200' 
-        : type === 'wrong' 
-        ? 'bg-red-200' 
-          : 'bg-slate-200'
-      }
-      rounded-md 
-      cursor-pointer
-    `}
-  >
-    {`${index}. ${text}`}
-  </li>
-)
+import { Button } from '@/components/ui';
+import { Answer } from '@/components';
+import { quizeData } from './data';
 
 export const Quiz: FC = () => {
+  const [selectedAnswers, setSelectedAnswers] = useState<Record<string, string>>({});
+  const [questionIdx, setQuestionIdx] = useState<number>(0);
+
+  const currentQuestion = quizeData[questionIdx];
+  const currentQuestionId = currentQuestion?.id;
+
+  const handleAnswerChange = (answerId: string) => {
+    setSelectedAnswers(prev => ({ ...prev, [currentQuestionId]: answerId }));
+  };
+
+  const onPrev = () => setQuestionIdx(prev => Math.max(prev - 1, 0));
+  const onNext = () => setQuestionIdx(prev => Math.min(prev + 1, quizeData.length - 1));
+
   return (
-    <div className={'flex flex-col gap-10'}>
-      <p className={'text-center'}>Question?</p>
+    <div className={'flex flex-col gap-6'}>
+      <div>
+        <p className={'text-center'}>{currentQuestion?.questionText}</p>
 
-      <ol className={'grid grid-rows-2 grid-flow-col gap-4'}>
-        <Answer 
-          index={'A'} 
-          type={'wrong'}
-          text={'What is it? What is it? What is it? What is it? What is it?'} 
-        />
-        <Answer
-          index={'B'}
-          text={'What is it? '}
-        />
-        <Answer
-          type={'correct'}
-          index={'C'}
-          text={'What is it? '}
-        />
-        <Answer
-          index={'D'}
-          text={'What is it? '}
-        />
-      </ol>
+        <ol className={'grid grid-rows-2 grid-flow-col gap-4'}>
+          {currentQuestion?.answers.map((answer) => {
+            const isChecked = selectedAnswers[currentQuestionId] === answer.id;
+            const answerType = isChecked
+              ? answer.isCorrect
+                ? 'correct'
+                : 'wrong'
+              : '';
 
-      <div className={'flex flex-col gap-2'}>
+            return (
+              <Answer
+                key={answer.id}
+                id={answer.id}
+                value={answer.id}
+                text={answer.answerText}
+                type={answerType}
+                checked={isChecked}
+                onChange={() => handleAnswerChange(answer.id)}
+              />
+            );
+          })}
+        </ol>
+      </div>
+
+      {/* <div className={'flex flex-col gap-2'}>
         <Row className={'bg-emerald-200'}>
           <Icon icon={FaRegCheckCircle} />
           <p>Some content here</p>
@@ -66,12 +59,20 @@ export const Quiz: FC = () => {
           <Icon icon={CgCloseO} />
           <p>Some content here</p>
         </Row>
-      </div>
+      </div> */}
 
-      <div className={'flex content-center justify-between'}>
-        <Button text={'Prev'} />
-        <Button text={'Next'} />
+      <div className={'flex justify-between'}>
+        <Button
+          text={'Prev'}
+          disabled={questionIdx === 0}
+          onClick={onPrev}
+        />
+        <Button
+          text={'Next'}
+          disabled={questionIdx === quizeData.length - 1}
+          onClick={onNext}
+        />
       </div>
     </div>
-  )
-}
+  );
+};

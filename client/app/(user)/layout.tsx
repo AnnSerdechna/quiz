@@ -21,7 +21,7 @@ export default function RootLayout({
           <Menu />
         </nav>
       </aside>
-      <main className={'grid place-content-center h-full p-4'}>
+      <main className={'p-4 overflow-y-scroll'}>
         {children}
       </main>
     </div>

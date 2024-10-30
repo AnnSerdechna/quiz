@@ -10,8 +10,9 @@ export default function Course() {
 
   return (
     <Fragment>
-      {/* <Quiz /> */}
-      <CodeEditor />
+      <p>{course}</p>
+      <Quiz />
+      {/* <CodeEditor /> */}
     </Fragment>
   );
 }
