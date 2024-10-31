@@ -1,12 +1,14 @@
-import React, { FC, Fragment } from 'react';
+'use client';
+
+import { FC, useState, useCallback } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { javascript } from '@codemirror/lang-javascript';
 import { dracula } from '@uiw/codemirror-theme-dracula';
 
 export const CodeEditor: FC = () => {
-  const [value, setValue] = React.useState("console.log('hello world!');");
+  const [value, setValue] = useState("console.log('hello world!');");
 
-  const onChange = React.useCallback((val: string) => {
+  const onChange = useCallback((val: string) => {
     setValue(val);
   }, []);
 

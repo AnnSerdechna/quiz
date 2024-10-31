@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useState } from 'react';
+import { Fragment } from 'react';
 import { useParams } from 'next/navigation';
 
 import { Quiz, CodeEditor } from '@/components';
@@ -10,8 +10,8 @@ export default function Course() {
 
   return (
     <Fragment>
-      {/* <Quiz /> */}
-      <CodeEditor />
+      <Quiz />
+      {/* <CodeEditor /> */}
     </Fragment>
   );
 }
