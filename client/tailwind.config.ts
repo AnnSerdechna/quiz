@@ -14,10 +14,6 @@ const config: Config = {
         'h3': '1.125rem', 
         'h4': '1rem',     
       },
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
     },
   },
   plugins: [],

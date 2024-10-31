@@ -11,7 +11,7 @@ type AnswerProps = {
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const Answer: FC<AnswerProps> = ({ id, text, type, value, checked, onChange }) => {
+export const QuizAnswer: FC<AnswerProps> = ({ id, text, type, value, checked, onChange }) => {
   const labelStyles = `
     flex
     content-center

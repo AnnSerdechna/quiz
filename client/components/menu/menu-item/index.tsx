@@ -2,16 +2,16 @@ import Link from 'next/link';
 import { FC, ReactNode } from 'react'
 
 export interface MenuItemProps {
-  path: string
+  id: string
   label: string
-  icon: ReactNode
+  icon?: ReactNode
 }
 
-export const MenuItem: FC<{ props: MenuItemProps }> = ({props}) => {
+export const MenuItem: FC<MenuItemProps> = ({id, label}) => {
   return (
     <li>
       <Link
-        href={`/courses/${props.path}`}
+        href={`/${id}`}
         className={`
           flex 
           content-center 
@@ -26,8 +26,8 @@ export const MenuItem: FC<{ props: MenuItemProps }> = ({props}) => {
           delay-150
         `}
       >
-        {props.icon}
-        <span>{props.label}</span>
+        {/* {props.icon} */}
+        <span>{label}</span>
       </Link>
     </li>
   )

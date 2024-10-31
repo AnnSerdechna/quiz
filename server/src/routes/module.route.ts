@@ -1,12 +1,12 @@
 import express from 'express';
 
-import { 
+import {
   createModule,
-  deleteModule, 
-  getModules, 
-  getOneModule, 
-  updateModule 
-} from '../../controllers/module.controller';
+  deleteModule,
+  getModules,
+  getOneModule,
+  updateModule
+} from '../controllers/module.controller';
 
 const router = express.Router();
 
