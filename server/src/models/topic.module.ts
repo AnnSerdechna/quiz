@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import { taskSchema } from './task.module';
+import { quizSchema } from './quiz.module';
 
 export const topicSchema = new mongoose.Schema({
   name: {
@@ -11,7 +11,7 @@ export const topicSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  tasks: [taskSchema]
+  quiz: [quizSchema]
 });
 
 const Topic = mongoose.model('Topic', topicSchema);
