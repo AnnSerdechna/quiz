@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+
+import { QueryProvider } from '@/providers';
+import { Menu } from '@/components';
 import "./globals.css";
 
 const geistSans = localFont({
@@ -7,6 +10,7 @@ const geistSans = localFont({
   variable: "--font-geist-sans",
   weight: "100 900",
 });
+
 const geistMono = localFont({
   src: "./fonts/GeistMonoVF.woff",
   variable: "--font-geist-mono",
@@ -24,12 +28,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <QueryProvider>
+      <html lang="en">
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <div className={`flex h-screen overflow-hidden`}>
+            <aside className={'w-1/5 py-4 h-screen px-2 border-r'}>
+              <nav aria-label="Courses list">
+                <Menu />
+              </nav>
+            </aside>
+            <main className={'w-full h-screen overflow-y-scroll px-4 py-10'}>
+              {children}
+            </main>
+          </div>
+        </body>
+      </html>
+    </QueryProvider>
   );
 }

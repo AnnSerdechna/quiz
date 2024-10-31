@@ -1,5 +1,6 @@
-import { Module } from '../models/module.model';
 import { Request, Response } from 'express';
+
+import { Module } from '../models/module.model';
 
 const getModules = async (req: Request, res: Response) => {
   try {

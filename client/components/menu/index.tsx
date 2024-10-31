@@ -1,29 +1,32 @@
-import { FC, ReactNode } from 'react'
-import { FaNodeJs } from "react-icons/fa";
-import { IoLogoJavascript } from "react-icons/io5";
+'use client'
 
-import { Icon } from '@/components/ui';
-import { MenuItem, MenuItemProps } from '@/components';
+import { FC } from 'react'
+import { useQuery } from '@tanstack/react-query';
 
-const menuItems: MenuItemProps[] = [
-  {
-    path: 'node',
-    label: 'Node JS',
-    icon: <Icon icon={FaNodeJs} />,
-  },
-  {
-    path: 'js',
-    label: 'JavaScript',
-    icon: <Icon icon={IoLogoJavascript} />,
-  },
-]
+import { MenuItem } from '@/components';
+import { fetchModules } from '@/data/module';
 
 export const Menu: FC = () => {
+  const { data: modulesData, error, isLoading } = useQuery<any[], Error>({
+    queryKey: ['modules'],
+    queryFn: fetchModules, 
+  });  
+
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+
   return (
     <ul className={'flex flex-col gap-1'}>
-      {menuItems.map((props) => (
-        <MenuItem key={props.path} props={props} />
+      {modulesData?.map((item) => (
+        <div key={item?._id} className={'flex flex-col gap-4'}>
+          <p>{item?.name}</p>
+
+          {item?.topics?.map((topic: any) => (
+            <MenuItem key={topic?._id} id={topic?._id}  label={topic?.name} />
+          ))}
+        </div>
       ))}
     </ul>
+    
   )
 }
